@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let layout = UICollectionViewFlowLayout()
-        window?.rootViewController = UINavigationController(rootViewController: HomeViewController(collectionViewLayout: layout))
+//        let layout = UICollectionViewFlowLayout()
+        window?.rootViewController = MainTabBarController()
+
+//        window?.rootViewController = UINavigationController(rootViewController: HomeViewController(collectionViewLayout: layout))
 //        window?.rootViewController = CustomTabBarController()
 
 //        window?.tintColor = UIColor.black

@@ -41,6 +41,7 @@ class ListingDetailController: UICollectionViewController, UICollectionViewDeleg
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        self.hidesBottomBarWhenPushed = false
 
 //        var toolbar: UIToolbar!
 //
@@ -56,12 +57,14 @@ class ListingDetailController: UICollectionViewController, UICollectionViewDeleg
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.hidesBottomBarWhenPushed = false
+        
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         
     
-
         
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
         imageView.contentMode = .scaleAspectFit
@@ -81,6 +84,7 @@ class ListingDetailController: UICollectionViewController, UICollectionViewDeleg
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
 //        setupTabBar()
+
         setupNavBarButtons()
         
         
@@ -104,9 +108,13 @@ class ListingDetailController: UICollectionViewController, UICollectionViewDeleg
     }
     
     func setupNavBarButtons() {
+        let moreButton = UIBarButtonItem(image: UIImage(named: "nav_more_icon")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleVideo))
+        moreButton.tintColor = UIColor.black
+//        navigationItem.rightBarButtonItems = [moreButton]
+
         let movieIcon = UIImage(named: "movie")?.withRenderingMode(.alwaysOriginal)
         let videoButton = UIBarButtonItem(image: movieIcon, style: .plain, target: self, action: #selector(handleVideo))
-        navigationItem.rightBarButtonItem = videoButton
+        navigationItem.rightBarButtonItems = [videoButton, moreButton]
     }
     
     
@@ -119,26 +127,26 @@ class ListingDetailController: UICollectionViewController, UICollectionViewDeleg
         activityVC.popoverPresentationController?.barButtonItem = sender
         self.present(activityVC, animated: true, completion: nil)
     }
-    func returnEmailStringBase64EncodedImage(image:UIImage) -> String {
-        let imgData:NSData = UIImagePNGRepresentation(image)! as NSData;
-        let dataString = imgData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
-        return dataString
-    }
+
     @objc func sendMail(sender: UIBarButtonItem) {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
-            
+
             let leftIconView = CustomImageView()
             leftIconView.image = UIImage(named: "")
 
             if let thumbnailImageUrl = listing?.StandardFields.Photos[0].Uri640 {
                 leftIconView.loadImageUsingUrlString(urlString: (thumbnailImageUrl))
-                if let fileData = NSData(contentsOfFile: thumbnailImageUrl) {
-                mail.addAttachmentData(fileData as Data, mimeType: "image/jpeg", fileName: "swifts")
-        
+//                if let fileData = UIImageJPEGRepresentation(leftIconView.image!, 1.0) {
+//                    if let fileData = Data(thumbnailImageUrl) {
+                //mail.addAttachmentData(fileData as Data, mimeType: "image/jpeg", fileName: "swifts")
+//                    mail.addAttachmentData(UIImageJPEGRepresentation(fileData, CGFloat(1.0)), mimeType: "image/jpeg", fileName: "swifts")
+
+//                    mail.addAttachmentData(UIImageJPEGRepresentation(UIImage(named: "emailImage")!, CGFloat(1.0))!, mimeType: "image/jpeg", fileName:  "test.jpeg")
+
                 }
                 
-            }
+            
 
             let emailBody = "<img src='\(leftIconView.imageUrlString!)'>"
             
@@ -167,10 +175,9 @@ class ListingDetailController: UICollectionViewController, UICollectionViewDeleg
     
     
     func setUpToolBarButtons() {
-
         
         UIBarButtonItem.appearance().tintColor = UIColor.red
-        toolbar = UIToolbar(frame: CGRect(x:0, y:self.view.bounds.size.height - 84, width: self.view.bounds.size.width, height: 90.0))
+        toolbar = UIToolbar(frame: CGRect(x:0, y:self.view.bounds.size.height - 64, width: self.view.bounds.size.width, height: 70.0))
         toolbar.layer.position = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height-40.0)
 
         let compose = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.compose, target: self, action: #selector(sendMail(sender:)))
@@ -185,13 +192,17 @@ class ListingDetailController: UICollectionViewController, UICollectionViewDeleg
 //        self.toolbar.items. = UITabBarItemPositioning.automatic
         self.view.addSubview(toolbar)
         
-        camera.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
-        add.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
-        search.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
-        organize.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
-        compose.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
+//        camera.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
+//        add.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
+//        search.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
+//        organize.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
+//        compose.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -26, right: 0)
 
+        guard let items = toolbar.items else { return }
+        for item in items {
+            item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
 
+        }
     }
     @objc func handleVideo(url:NSURL) {
         guard let vidUrl = listing?.StandardFields.VirtualTours[0].Uri else { return }
@@ -424,6 +435,7 @@ class TitleCell: BaseCell {
     }()
     
     override func setupViews() {
+        
         
         addSubview(viewContainer)
         addSubview(nameLabel)

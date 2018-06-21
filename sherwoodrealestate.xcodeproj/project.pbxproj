@@ -16,6 +16,7 @@
 		7832981320D7114400A81034 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7832981220D7114400A81034 /* WebViewController.swift */; };
 		7832981520D8330600A81034 /* AboutSherwoodVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7832981420D8330600A81034 /* AboutSherwoodVC.swift */; };
 		7832981720D9760B00A81034 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7832981620D9760B00A81034 /* CustomTabBarController.swift */; };
+		7832981920DC3F3C00A81034 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7832981820DC3F3C00A81034 /* MainTabBarController.swift */; };
 		785DE0C020D5E17200BFB8DB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785DE0BF20D5E17200BFB8DB /* Extensions.swift */; };
 		785DE0C220D5EA9400BFB8DB /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785DE0C120D5EA9400BFB8DB /* SettingsLauncher.swift */; };
 		785DE0C420D5EBA500BFB8DB /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785DE0C320D5EBA500BFB8DB /* MenuBar.swift */; };
@@ -38,6 +39,7 @@
 		7832981220D7114400A81034 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		7832981420D8330600A81034 /* AboutSherwoodVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSherwoodVC.swift; sourceTree = "<group>"; };
 		7832981620D9760B00A81034 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		7832981820DC3F3C00A81034 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		785DE0BF20D5E17200BFB8DB /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		785DE0C120D5EA9400BFB8DB /* SettingsLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 		785DE0C320D5EBA500BFB8DB /* MenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
@@ -73,6 +75,15 @@
 			path = Maps;
 			sourceTree = "<group>";
 		};
+		7832981A20DC40B500A81034 /* old tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				781FAB3420B3725B00E13855 /* CustomTabBar.swift */,
+				7832981620D9760B00A81034 /* CustomTabBarController.swift */,
+			);
+			path = "old tabbar";
+			sourceTree = "<group>";
+		};
 		7890A62820B353C20090E0A2 = {
 			isa = PBXGroup;
 			children = (
@@ -96,8 +107,8 @@
 				7890A63620B353C20090E0A2 /* HomeViewController.swift */,
 				7832981420D8330600A81034 /* AboutSherwoodVC.swift */,
 				7832981220D7114400A81034 /* WebViewController.swift */,
-				7832981620D9760B00A81034 /* CustomTabBarController.swift */,
-				781FAB3420B3725B00E13855 /* CustomTabBar.swift */,
+				7832981820DC3F3C00A81034 /* MainTabBarController.swift */,
+				7832981A20DC40B500A81034 /* old tabbar */,
 				781FAB2B20B36DAF00E13855 /* ListingDetailController.swift */,
 				785DE0C120D5EA9400BFB8DB /* SettingsLauncher.swift */,
 				785DE0C520D5F0AC00BFB8DB /* SettingCell.swift */,
@@ -205,6 +216,7 @@
 				7832981520D8330600A81034 /* AboutSherwoodVC.swift in Sources */,
 				781FAB3720B5F37E00E13855 /* Constants.swift in Sources */,
 				7832981320D7114400A81034 /* WebViewController.swift in Sources */,
+				7832981920DC3F3C00A81034 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

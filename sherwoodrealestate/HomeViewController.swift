@@ -25,13 +25,14 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         super.viewWillAppear(animated)
         UINavigationBar.appearance().tintColor = UIColor.black
         navigationItem.backBarButtonItem = UIBarButtonItem(title:" ", style: .plain, target: nil, action: nil)
+        self.tabBarController?.tabBar.isHidden = false
 
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.isTranslucent = false
-        
+
 
         Listing.standardFields.fetchListing { (listings) -> () in
             self.listings = listings.D.Results
@@ -66,7 +67,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     }
 
-    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        self.hidesBottomBarWhenPushed = true
+//    }
     func setupNavBarButtons() {
 //        let searchImage = UIImage(named: "search_icon")?.withRenderingMode(.alwaysOriginal)
 //        let searchBarButtonItem = UIBarButtonItem(image: searchImage, style: .plain, target: self, action: #selector(handleSearch))
@@ -169,6 +172,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 //        let backItem = UIBarButtonItem()
 //        backItem.tintColor = UIColor(red: 66, green: 66, blue: 66, alpha: 1)
 //        navigationItem.backBarButtonItem = backItem
+//        self.hidesBottomBarWhenPushed = true
+        self.tabBarController?.tabBar.isHidden = true
+
         navigationController?.pushViewController(listingDetailController, animated: true)
     }
     // MARK: - Home CollectionViewController
