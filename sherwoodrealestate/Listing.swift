@@ -41,49 +41,49 @@ class Listing: Decodable, Encodable {
     }
     struct standardFields: Codable {
         
-        var ListingId: String
+        var ListingId: String?
         
-        var ListAgentName: String
-        var ListAgentStateLicense: String
-        var ListAgentEmail: String
+        var ListAgentName: String?
+        var ListAgentStateLicense: String?
+        var ListAgentEmail: String?
         
-        var CoListAgentName: String
-        var CoListAgentStateLicense: String
-        var ListOfficePhone: String
-        var ListOfficeFax: String
+        var CoListAgentName: String?
+//        var CoListAgentStateLicense: String?
+        var ListOfficePhone: String?
+        var ListOfficeFax: String?
         
-        var UnparsedFirstLineAddress: String
-        var City: String
-        var PostalCode: String
-        var StateOrProvince: String
+        var UnparsedFirstLineAddress: String?
+        var City: String?
+        var PostalCode: String?
+        var StateOrProvince: String?
         
-        var UnparsedAddress: String
-        var YearBuilt: Int?
+        var UnparsedAddress: String?
+//        var YearBuilt: String?
         
-        var CurrentPricePublic: Int
-        var ListPrice: Int
+        var CurrentPricePublic: Int?
+        var ListPrice: Int?
         
-        var BedsTotal: Int
-        var BathsFull: Int
-        var BathsHalf: Int?
+//        var BedsTotal: Int?
+//        var BathsFull: Int?
+//        var BathsHalf: Int?
         
-        var BuildingAreaTotal: Int
+//        var BuildingAreaTotal: Int
         
         var PublicRemarks: String?
         
-        var ListAgentURL: String
-        var ListOfficeName: String
+        var ListAgentURL: String?
+        var ListOfficeName: String?
         
-        let Latitude: Double
-        let Longitude: Double
+        let Latitude: Double?
+        let Longitude: Double?
        
-        var VirtualTours: [VirtualTours]
+        var VirtualTours: [VirtualTours]?
         struct VirtualTours: Codable {
-            var Uri: String
+            var Uri: String?
         }
-        var Videos: [Videos]
+        var Videos: [Videos]?
         struct Videos: Codable {
-            var ObjectHtml: String
+            var ObjectHtml: String?
         }
         
         
@@ -146,20 +146,36 @@ class Listing: Decodable, Encodable {
                     
                     let authToken = listing.D.Results[0].AuthToken
                     
-                    //var myListingsPass = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/my/listingsAuthToken"
+                    var myListingsPass = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/listingsAuthToken\(authToken)"
                   //  let myPhotoPass = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/my/listingsAuthToken\(authToken)_expandPhotos"
                 //    let mySortPass  = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/my/listingsAuthToken\(authToken)_expandPhotos_orderby-ListPrice"
 //                    let myFilterPass = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/my/listingsAuthToken\(authToken)_expandPhotos_filterNot MlsStatus Eq 'Sold'_orderby-ListPrice"
                     
-                    let myFilterPass = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/my/listingsAuthToken\(authToken)_expandPhotos,Videos,VirtualTours_filterNot MlsStatus Eq 'Sold'_orderby-ListPrice"
+                    let myFilterPass = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/my/listingsAuthToken\(authToken)_expandPhotos,Videos,VirtualTours,OpenHouses,UserInterfaceDisplay_filterNot MlsStatus Eq 'Sold'_orderby-ListPrice"
+
+                    
+                    
+                    let testListingPass = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/listingsAuthToken\(authToken)_expandPhotos_filterNot MlsStatus Eq 'Sold'_orderby-ListPrice"
+                    
+                    let myCustomPass = "uTqE_dbyYSx6R1LvonsWOApiKeyvc_c15909466_key_1ServicePath/v1/my/listingsAuthToken\(authToken)_expandPhotos,Videos,VirtualTours,CustomFields_filterNot MlsStatus Eq 'Sold'_select=ListingId,Photos.Name_orderby-ListPrice"
                     
                     let filteredApiSig = self.md5(myFilterPass)
+                    let myListingApiSig = self.md5(myListingsPass)
+                    let testListingApiSig = self.md5(testListingPass)
 
+                    let myNewCustomPass = self.md5(myCustomPass)
+                    
                     let space = "%20"
                     let quote = "%27"
                     let comma = "%2C"
-                    let filteredCall = "https://sparkapi.com/v1/my/listings?AuthToken=\(authToken)&_expand=Photos\(comma)Videos\(comma)VirtualTours&_filter=Not\(space)MlsStatus\(space)Eq\(space)\(quote)Sold\(quote)&_orderby=-ListPrice&ApiSig=\(filteredApiSig)"
+                    let forwardSlash = "%5C"
                     
+                    let filteredCall = "https://sparkapi.com/v1/my/listings?AuthToken=\(authToken)&_expand=Photos\(comma)Videos\(comma)VirtualTours\(comma)OpenHouses\(comma)UserInterfaceDisplay&_filter=Not\(space)MlsStatus\(space)Eq\(space)\(quote)Sold\(quote)&_orderby=-ListPrice&ApiSig=\(filteredApiSig)"
+                    let testListingsCall = "https://sparkapi.com/v1/listings?AuthToken=\(authToken)&_expand=Photos&_filter=Not\(space)MlsStatus\(space)Eq\(space)\(quote)Sold\(quote)&_orderby=-ListPrice&ApiSig=\(testListingApiSig)"
+                    
+                    
+//                    let listingCall = "http://sparkapi.com/v1/listings?AuthToken=\(authToken)&ApiSig=\(myListingApiSig)"
+                    let myCustomCall = "https://sparkapi.com/v1/my/listings?AuthToken=\(authToken)&_expand=Photos\(comma)Videos\(comma)VirtualTours&_filter=Not\(space)MlsStatus\(space)Eq\(space)\(quote)Sold\(quote)&_select=ListingId\(comma)Photos.Name&_orderby=-ListPrice&ApiSig=\(myNewCustomPass)"
                     
 //                    var myListingsPass = MY_LISTINGS_PASS
 //                    myListingsPass.append(authToken)
@@ -175,7 +191,9 @@ class Listing: Decodable, Encodable {
                   //  request.addValue("_expand", forHTTPHeaderField: "Photos")
                     let newTask = URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
                         guard let data = data else { return }
-                        //print(data)
+                        print(data)
+                        let jsonString = String(data: data, encoding: .utf8)
+                        print(jsonString)
                         if let error = error {
                             print(error)
                         }
@@ -184,6 +202,7 @@ class Listing: Decodable, Encodable {
                             
                             let newDecoder = JSONDecoder()
                             let newListing = try newDecoder.decode(listingData.self, from: data)
+                            
                             var emptyPhotoArray = [String]()
                             let theListing = newListing.D.Results
 

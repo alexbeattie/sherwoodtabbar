@@ -205,7 +205,7 @@ class ListingDetailController: UICollectionViewController, UICollectionViewDeleg
         }
     }
     @objc func handleVideo(url:NSURL) {
-        guard let vidUrl = listing?.StandardFields.VirtualTours[0].Uri else { return }
+        guard let vidUrl = listing?.StandardFields.VirtualTours![0].Uri else { return }
             print(vidUrl)
         let url = URL(string:vidUrl)
         let player = AVPlayer(url: url!)

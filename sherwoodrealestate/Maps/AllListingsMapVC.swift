@@ -137,7 +137,7 @@ class AllListingsMapVC: UIViewController, MKMapViewDelegate {
                 let lat = anno.StandardFields.Latitude
                 let lon = anno.StandardFields.Longitude
                 let subTitle = anno.StandardFields.ListOfficeName
-                let coordinate = CLLocationCoordinate2DMake(lat, lon)
+                let coordinate = CLLocationCoordinate2DMake(lat!, lon!)
                 
                 var thePoint = MKPointAnnotation()
                 thePoint = MKPointAnnotation()

@@ -16,7 +16,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var newList:Listing!
     
     var listings: [Listing.listingResults]?
-
+    var token: [Listing.resultsArr]?
     var photos : [Listing.standardFields.PhotoDictionary]?
     var picture = [[String: Any]]()
 
@@ -39,7 +39,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             DispatchQueue.main.async() {
                 self.collectionView?.reloadData()
             }
-
+            
         }
         
         
@@ -207,6 +207,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
         if let listing = listings?[indexPath.item] {
             let barBtn = UIBarButtonItem()
             barBtn.title = ""
@@ -214,6 +216,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             navigationItem.backBarButtonItem = barBtn
 
             showListingDetailController(listing)
+            print(listing.Id)
+            
+//            let filteredCall = "https://sparkapi.com/v1/my/listings?AuthToken=\(api.authToken)&_expand=Photos\(api.comma)Videos\(api.comma)VirtualTours\(api.comma)OpenHouses\(api.comma)UserInterfaceDisplay&_filter=Not\(api.space)MlsStatus\(api.space)Eq\(api.space)\(api.quote)Sold\(api.quote)&_orderby=-ListPrice&ApiSig=\(api.filteredApiSig)"
+            
+
         }
     }
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -225,7 +232,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 class HomeCell: UICollectionViewCell {
     var listing: Listing.listingResults? {
         didSet {
-
+            
+           
+            
+            if let listingId = listing?.Id {
+                print(listingId)
+            }
             setupThumbNailImage()
             
 //            if let thePhoto = listing?.StandardFields.Photos[0].Uri1024 {
@@ -234,6 +246,7 @@ class HomeCell: UICollectionViewCell {
             if let theAddress = listing?.StandardFields.UnparsedFirstLineAddress {
                 nameLabel.text = theAddress.uppercased()
             }
+            
 //            if let listPrice = listing?.StandardFields.ListPrice {
 //                let nf = NumberFormatter()
 //                nf.numberStyle = .decimal
@@ -242,7 +255,16 @@ class HomeCell: UICollectionViewCell {
 //            }
         }
     }
-    
+//    var token: Listing.resultsArr? {
+//        didSet {
+//            var emptyToken:[Listing.resultsArr]!
+//            let newToken: String?
+//            print(emptyToken.first)
+//
+////            print(newToken)
+//
+//        }
+//    }
    
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -271,6 +293,39 @@ class HomeCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    let bedRoom: UILabel = {
+        let label = UILabel()
+        label.text = " "
+        label.font = UIFont(name: "Avenir Heavy", size: 16)
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    let bathRoom: UILabel = {
+        let label = UILabel()
+        label.text = " "
+        label.font = UIFont(name: "Avenir Heavy", size: 16)
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    let squareFeet: UILabel = {
+        let label = UILabel()
+        label.text = " "
+        label.font = UIFont(name: "Avenir Heavy", size: 16)
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    
+    
+    
     let imageView: CustomImageView = {
         let iv = CustomImageView()
         iv.image = UIImage(named:"pic")
